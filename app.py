@@ -17,7 +17,6 @@ app.add_middleware(
 
 # 2. LiveKit Configuration
 # It tries to get keys from Render's Environment Variables first.
-# If not found, it falls back to the hardcoded keys you provided (for safety/testing).
 LIVEKIT_URL = os.getenv("LIVEKIT_URL", "wss://defensecommand-0hpjg8is.livekit.cloud")
 LIVEKIT_API_KEY = os.getenv("LIVEKIT_API_KEY", "APIHvSUQcBAaEDQ")
 LIVEKIT_API_SECRET = os.getenv("LIVEKIT_API_SECRET", "PzybOIstZODQiLB3hW4m2ZQsCDfE5CKrel69XWwfadIB")
@@ -36,8 +35,8 @@ async def get_token(identity: str, room_name: str = "war-room"):
         raise HTTPException(status_code=500, detail="Server misconfiguration: Missing LiveKit Keys")
 
     # 3. Define Permissions
-    # This grant allows the user to Publish (send video) and Subscribe (watch video)
-    grant = api.VideoGrant(
+    # FIX: Changed from VideoGrant to VideoGrants (plural)
+    grant = api.VideoGrants(
         room_join=True, 
         room=room_name,
         can_publish=True, 
