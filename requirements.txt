@@ -1,4 +1,5 @@
 fastapi
 uvicorn
-livekit-api
+livekit-server-sdk
 python-multipart
+python-dotenv
